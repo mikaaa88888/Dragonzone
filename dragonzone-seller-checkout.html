@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DragonZone – Seller Subscription</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0d0d; --bg2:#141414; --surface:#1c1c1c; --surface2:#222;
+  --border:#2e2e2e; --gold:#e6a817; --gold2:#f5cc60;
+  --gold-dim:rgba(230,168,23,.12); --gold-border:rgba(230,168,23,.25);
+  --red:#c0392b; --green:#1db954; --green-dim:rgba(29,185,84,.12);
+  --blue:#3b82f6; --orange:#f97316;
+  --text:#f0f0f0; --text2:#aaa; --text3:#555;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* HEADER */
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8b1a00,var(--gold),var(--gold2));}
+.header{position:relative;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),#c0392b);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.logo-name{font-family:'Cinzel',serif;font-size:18px;font-weight:900;color:var(--gold);}
+.logo-sub{font-size:9px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;}
+.secure-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3);}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0d0d0d 0%,#1a0800 50%,#2a1000 100%);border-bottom:1px solid var(--border);padding:48px 32px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'🐉';position:absolute;font-size:300px;opacity:.04;right:-40px;bottom:-60px;pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;}
+.hero-title{font-family:'Cinzel',serif;font-size:36px;font-weight:900;color:var(--text);margin-bottom:12px;}
+.hero-title span{color:var(--gold);}
+.hero-sub{font-size:15px;color:var(--text2);max-width:520px;margin:0 auto;line-height:1.8;}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:40px 32px 80px;display:grid;grid-template-columns:1fr 400px;gap:28px;align-items:start;}
+
+/* PLAN CARD */
+.plan-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:24px;}
+.plan-header{background:linear-gradient(135deg,#1a0800,#3a1500);padding:28px;position:relative;overflow:hidden;}
+.plan-header::after{content:'🏆';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:64px;opacity:.1;}
+.plan-name{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.plan-tagline{font-size:13px;color:rgba(255,255,255,.6);}
+.plan-price-row{display:flex;align-items:baseline;gap:6px;margin-top:16px;}
+.plan-price{font-size:44px;font-weight:800;color:var(--text);font-family:'Cinzel',serif;}
+.plan-currency{font-size:18px;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.plan-period{font-size:14px;color:var(--text2);}
+.plan-old-price{font-size:14px;color:var(--text3);text-decoration:line-through;margin-left:8px;}
+.plan-save{background:var(--red);color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;margin-left:8px;}
+
+.plan-features{padding:24px 28px;}
+.feat-group-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;margin-top:20px;}
+.feat-group-title:first-child{margin-top:0;}
+.feat-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px;color:var(--text2);}
+.feat-item:last-child{border-bottom:none;}
+.feat-check{width:20px;height:20px;border-radius:50%;background:var(--green-dim);border:1px solid rgba(29,185,84,.3);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:var(--green);}
+.feat-item strong{color:var(--text);}
+
+/* COMPARE */
+.compare-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px;}
+.compare-header{padding:16px 20px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;color:var(--text2);}
+.compare-row{display:grid;grid-template-columns:1fr auto auto;gap:0;font-size:13px;}
+.compare-row.head{background:var(--surface);font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
+.compare-cell{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.04);}
+.compare-cell.highlight{background:var(--gold-dim);color:var(--gold);font-weight:700;}
+.compare-cell.center{text-align:center;}
+.c-check{color:var(--green);}
+.c-x{color:var(--text3);}
+
+/* TESTIMONIAL */
+.testimonial{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:14px;padding:20px 24px;margin-bottom:24px;}
+.t-quote{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:12px;font-style:italic;}
+.t-author{display:flex;align-items:center;gap:10px;}
+.t-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--bg);}
+.t-name{font-size:13px;font-weight:700;color:var(--gold);}
+.t-store{font-size:11px;color:var(--text3);}
+
+/* CHECKOUT CARD */
+.checkout-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;overflow:hidden;position:sticky;top:24px;}
+.cc-header{background:linear-gradient(135deg,var(--gold-dim),rgba(230,168,23,.05));padding:20px 24px;border-bottom:1px solid var(--border);}
+.cc-title{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.cc-sub{font-size:12px;color:var(--text3);}
+
+.cc-body{padding:24px;}
+
+/* BILLING CYCLE */
+.billing-opts{display:flex;gap:8px;margin-bottom:20px;}
+.billing-opt{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.billing-opt:hover{border-color:var(--gold);}
+.billing-opt.selected{border-color:var(--gold);background:var(--gold-dim);}
+.bo-period{font-size:13px;font-weight:700;color:var(--text);}
+.bo-price{font-size:12px;color:var(--text2);margin-top:2px;}
+.bo-badge{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--green);color:black;font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+
+/* FORM */
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.form-input-wrap{position:relative;}
+.f-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;}
+.form-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 12px 11px 38px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(230,168,23,.1);}
+.form-input::placeholder{color:var(--text3);}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* PAY METHOD */
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.pm{border:1px solid var(--border);border-radius:9px;padding:10px;text-align:center;cursor:pointer;transition:all .18s;}
+.pm:hover{border-color:var(--gold);}
+.pm.selected{border-color:var(--gold);background:var(--gold-dim);}
+.pm-icon{font-size:22px;margin-bottom:4px;}
+.pm-name{font-size:11px;font-weight:700;color:var(--text2);}
+.pm.selected .pm-name{color:var(--gold);}
+
+.pay-fields{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;}
+
+/* ORDER LINE */
+.order-line{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05);}
+.order-line:last-of-type{border:none;}
+.order-line.total{font-size:18px;font-weight:800;color:var(--text);border-top:1px solid var(--border);padding-top:12px;margin-top:4px;}
+.order-line.total span:last-child{color:var(--gold);}
+
+/* PAY BTN */
+.pay-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);border:none;border-radius:11px;padding:15px;font-family:'Cinzel',serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(230,168,23,.3);letter-spacing:.5px;}
+.pay-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(230,168,23,.4);}
+
+.cc-footer{padding:14px 24px;border-top:1px solid var(--border);display:flex;justify-content:center;gap:20px;}
+.cc-trust{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
+
+/* STEP panels in checkout */
+.cc-step{display:none;}
+.cc-step.active{display:block;}
+
+/* SUCCESS */
+.success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;}
+.success-overlay.show{opacity:1;pointer-events:all;}
+.success-card{background:var(--bg2);border:1px solid var(--gold-border);border-radius:20px;padding:48px 40px;text-align:center;max-width:500px;width:90%;animation:popUp .5s cubic-bezier(.4,0,.2,1);}
+@keyframes popUp{from{transform:scale(.85);opacity:0;}to{transform:scale(1);opacity:1;}}
+.sc-icon{font-size:72px;margin-bottom:16px;}
+.sc-title{font-family:'Cinzel',serif;font-size:26px;font-weight:700;color:var(--gold);margin-bottom:8px;}
+.sc-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px;}
+.sc-receipt{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;text-align:left;margin-bottom:24px;}
+.sc-receipt-row{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:6px;}
+.sc-receipt-row:last-child{margin-bottom:0;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:8px;margin-top:4px;}
+.sc-receipt-row span:last-child{color:var(--gold);}
+.sc-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);border:none;border-radius:10px;padding:14px 32px;font-family:'Cinzel',serif;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;}
+
+/* TOGGLE PW */
+.toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:14px;color:var(--text3);}
+
+@media(max-width:900px){
+  .main{grid-template-columns:1fr;}
+  .checkout-card{position:static;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <a href="dragonzone-seller.html" class="logo">
+    <div class="logo-icon">🐉</div>
+    <div>
+      <div class="logo-name">DragonZone</div>
+      <div class="logo-sub">Seller Centre</div>
+    </div>
+  </a>
+  <div class="secure-badge">🔒 Secure Payment — SSL Encrypted</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🏪 Seller Subscription</div>
+  <div class="hero-title">Keep Your Store <span>Open & Active</span></div>
+  <div class="hero-sub">Pay Nu. 5,000 per year to maintain your DragonZone seller store — list unlimited products and reach buyers across all 20 dzongkhags.</div>
+</div>
+
+<div class="main">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- PLAN CARD -->
+    <div class="plan-card">
+      <div class="plan-header">
+        <div class="plan-name">🏪 DragonZone Seller Plan</div>
+        <div class="plan-tagline">Everything you need to grow your business in Bhutan</div>
+        <div class="plan-price-row">
+          <span class="plan-currency">Nu.</span>
+          <span class="plan-price">5,000</span>
+          <span class="plan-period">/ year</span>
+          <span class="plan-old-price">Nu. 7,500</span>
+          <span class="plan-save">SAVE 33%</span>
+        </div>
+      </div>
+      <div class="plan-features">
+        <div class="feat-group-title">Store Features</div>
+        <div class="feat-item"><span class="feat-check">✓</span> <strong>Unlimited product listings</strong> — no cap on what you sell</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Your own branded store page on DragonZone</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Featured in category pages and search results</div>
+        <div class="feat-item"><span class="feat-check">✓</span> <strong>Flash sale eligibility</strong> — boost visibility on deal days</div>
+
+        <div class="feat-group-title">Payments & Payouts</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Accept mBoB, BNB, Visa, Mastercard, Cash on Delivery</div>
+        <div class="feat-item"><span class="feat-check">✓</span> <strong>Payouts twice a month</strong> to your bank account</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Low 5% commission per sale (lowest in Bhutan)</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Real-time earnings dashboard & transaction history</div>
+
+        <div class="feat-group-title">Logistics & Delivery</div>
+        <div class="feat-item"><span class="feat-check">✓</span> <strong>Nationwide delivery network</strong> — all 20 dzongkhags</div>
+        <div class="feat-item"><span class="feat-check">✓</span> DragonZone handles shipping logistics for you</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Order tracking for your customers</div>
+
+        <div class="feat-group-title">Analytics & Support</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Full sales analytics & performance reports</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Customer review management</div>
+        <div class="feat-item"><span class="feat-check">✓</span> <strong>Priority seller support</strong> — phone & chat</div>
+        <div class="feat-item"><span class="feat-check">✓</span> Free seller training & onboarding resources</div>
+      </div>
+    </div>
+
+    <!-- COMPARE -->
+    <div class="compare-card">
+      <div class="compare-header">📊 What happens if you don't renew?</div>
+      <div class="compare-row head">
+        <div class="compare-cell">Feature</div>
+        <div class="compare-cell center">Active (Nu. 5,000/yr)</div>
+        <div class="compare-cell center">Expired</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Products visible to buyers</div>
+        <div class="compare-cell center highlight c-check">✓ Yes</div>
+        <div class="compare-cell center c-x">✗ Hidden</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Receive new orders</div>
+        <div class="compare-cell center highlight c-check">✓ Yes</div>
+        <div class="compare-cell center c-x">✗ Paused</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Process existing orders</div>
+        <div class="compare-cell center highlight c-check">✓ Yes</div>
+        <div class="compare-cell center c-check">✓ Yes</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Access seller dashboard</div>
+        <div class="compare-cell center highlight c-check">✓ Full</div>
+        <div class="compare-cell center" style="color:var(--orange);">⚠ Read-only</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Receive payouts</div>
+        <div class="compare-cell center highlight c-check">✓ Yes</div>
+        <div class="compare-cell center c-x">✗ On hold</div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIAL -->
+    <div class="testimonial">
+      <div class="t-quote">"Since joining DragonZone, my Thangka paintings reach buyers from Thimphu to Trashigang. The Nu. 5,000 annual fee pays for itself in the first week. Best investment for my craft business!"</div>
+      <div class="t-author">
+        <div class="t-avatar">P</div>
+        <div>
+          <div class="t-name">Pema Choden</div>
+          <div class="t-store">🎨 Pema's Thangka House, Thimphu • Seller since 2023</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENEWAL INFO -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px 24px;">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">📅 Subscription Details</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:var(--surface);border-radius:10px;padding:14px;">
+          <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">Current Plan</div>
+          <div style="font-size:14px;color:var(--gold);font-weight:700;">Seller Plan — Active</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">Expires: Apr 27, 2026</div>
+        </div>
+        <div style="background:var(--surface);border-radius:10px;padding:14px;">
+          <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px;">Renewing For</div>
+          <div style="font-size:14px;color:var(--green);font-weight:700;">Apr 27, 2026 → Apr 27, 2027</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px;">12 months access</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text3);display:flex;align-items:center;gap:6px;">
+        <span>🔁</span> Auto-renewal is off by default. You'll get a reminder 30 days before expiry.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: CHECKOUT CARD -->
+  <div class="checkout-card">
+    <div class="cc-header">
+      <div class="cc-title">Complete Payment</div>
+      <div class="cc-sub">Secure checkout for your seller subscription</div>
+    </div>
+    <div class="cc-body">
+
+      <!-- Billing Cycle -->
+      <div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Billing Cycle</div>
+      <div class="billing-opts">
+        <div class="billing-opt selected" id="bill-annual" onclick="selectBilling('annual')">
+          <div class="bo-period">Annual</div>
+          <div class="bo-price">Nu. 5,000/yr</div>
+          <div class="bo-badge">BEST VALUE</div>
+        </div>
+        <div class="billing-opt" id="bill-monthly" onclick="selectBilling('monthly')">
+          <div class="bo-period">Monthly</div>
+          <div class="bo-price">Nu. 500/mo</div>
+        </div>
+      </div>
+
+      <!-- Payment method -->
+      <div style="font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Payment Method</div>
+      <div class="pay-methods">
+        <div class="pm selected" id="pm-card" onclick="selectPayMethod('card')">
+          <div class="pm-icon">💳</div>
+          <div class="pm-name">Card</div>
+        </div>
+        <div class="pm" id="pm-mbob" onclick="selectPayMethod('mbob')">
+          <div class="pm-icon">📱</div>
+          <div class="pm-name">mBoB</div>
+        </div>
+        <div class="pm" id="pm-bnb" onclick="selectPayMethod('bnb')">
+          <div class="pm-icon">🏦</div>
+          <div class="pm-name">BNB</div>
+        </div>
+        <div class="pm" id="pm-cod" onclick="selectPayMethod('transfer')">
+          <div class="pm-icon">🔄</div>
+          <div class="pm-name">Transfer</div>
+        </div>
+      </div>
+
+      <!-- Card fields -->
+      <div id="pf-card" class="pay-fields">
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <div class="form-input-wrap">
+            <span class="f-icon">💳</span>
+            <input class="form-input" type="text" placeholder="1234  5678  9012  3456" maxlength="19" oninput="fmtCard(this)">
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Expiry</label>
+            <div class="form-input-wrap">
+              <span class="f-icon">📅</span>
+              <input class="form-input" type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">CVV</label>
+            <div class="form-input-wrap">
+              <span class="f-icon">🔒</span>
+              <input class="form-input" type="password" placeholder="•••" maxlength="4" id="cvv2">
+              <button class="toggle-pw" type="button" onclick="togglePw('cvv2',this)">👁️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- mBoB fields -->
+      <div id="pf-mbob" class="pay-fields" style="display:none;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">mBoB Phone Number</label>
+          <div class="form-input-wrap">
+            <span class="f-icon">📱</span>
+            <input class="form-input" type="tel" placeholder="+975 17 123 456">
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text3);">📲 You'll receive a payment confirmation on your mBoB app</div>
+      </div>
+
+      <!-- BNB fields -->
+      <div id="pf-bnb" class="pay-fields" style="display:none;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">BNB Account Number</label>
+          <div class="form-input-wrap">
+            <span class="f-icon">🏦</span>
+            <input class="form-input" type="text" placeholder="Your BNB account number">
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text3);">🔐 Secure bank transfer via Bank of Bhutan</div>
+      </div>
+
+      <!-- Bank transfer -->
+      <div id="pf-transfer" class="pay-fields" style="display:none;">
+        <div style="font-size:12px;color:var(--text2);line-height:1.8;">
+          Transfer <strong style="color:var(--gold);">Nu. 5,000</strong> to:<br>
+          <strong style="color:var(--text);">Bank:</strong> Bank of Bhutan<br>
+          <strong style="color:var(--text);">Account:</strong> 1234-5678-9012<br>
+          <strong style="color:var(--text);">Name:</strong> DragonZone Bhutan Pvt Ltd<br>
+          <strong style="color:var(--text);">Ref:</strong> SELLER-<span id="refCode">DZ2025</span>
+        </div>
+      </div>
+
+      <!-- Order summary lines -->
+      <div style="margin-bottom:16px;">
+        <div class="order-line"><span>Seller Plan (<span id="billingLabel">Annual</span>)</span><span id="planPrice">Nu. 5,000</span></div>
+        <div class="order-line"><span>Registration fee</span><span style="color:var(--green);">FREE</span></div>
+        <div class="order-line"><span>GST (0% — Bhutan)</span><span>Nu. 0</span></div>
+        <div class="order-line total"><span>Total Due Today</span><span id="totalDue">Nu. 5,000</span></div>
+      </div>
+
+      <button class="pay-btn" onclick="processPayment()">
+        🐉 Pay <span id="payBtnAmount">Nu. 5,000</span> — Activate Store
+      </button>
+
+    </div>
+    <div class="cc-footer">
+      <div class="cc-trust">🔒 SSL Secure</div>
+      <div class="cc-trust">🇧🇹 Bhutan business</div>
+      <div class="cc-trust">↩️ Refund policy</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="sc-icon">🎉</div>
+    <div class="sc-title">Store Activated! 🐉</div>
+    <div class="sc-desc">Your DragonZone seller subscription is now active. Your store is live and visible to buyers across all 20 dzongkhags!</div>
+    <div class="sc-receipt">
+      <div class="sc-receipt-row"><span>Plan</span><span>Seller Plan — Annual</span></div>
+      <div class="sc-receipt-row"><span>Valid Until</span><span>Apr 27, 2027</span></div>
+      <div class="sc-receipt-row"><span>Transaction ID</span><span id="txnId"></span></div>
+      <div class="sc-receipt-row"><span>Total Paid</span><span id="receiptTotal">Nu. 5,000</span></div>
+    </div>
+    <button class="sc-btn" onclick="window.location.href='dragonzone-seller.html'">Go to Seller Dashboard →</button>
+  </div>
+</div>
+
+<script>
+let billing = 'annual';
+let payMethod = 'card';
+
+function selectBilling(b) {
+  billing = b;
+  document.querySelectorAll('.billing-opt').forEach(o=>o.classList.remove('selected'));
+  document.getElementById('bill-'+b).classList.add('selected');
+  const isAnnual = b==='annual';
+  const price = isAnnual ? 'Nu. 50,000' : 'Nu. 5000';
+  document.getElementById('billingLabel').textContent = isAnnual ? 'Annual' : 'Monthly';
+  document.getElementById('planPrice').textContent = price;
+  document.getElementById('totalDue').textContent = price;
+  document.getElementById('payBtnAmount').textContent = price;
+  document.getElementById('receiptTotal').textContent = price;
+}
+
+function selectPayMethod(m) {
+  payMethod = m;
+  document.querySelectorAll('.pm').forEach(o=>o.classList.remove('selected'));
+  document.getElementById('pm-'+m).classList.add('selected');
+  ['card','mbob','bnb','transfer'].forEach(k=>{
+    document.getElementById('pf-'+k).style.display = k===m?'block':'none';
+  });
+}
+
+function fmtCard(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,16);
+  input.value = v.replace(/(.{4})/g,'$1  ').trim();
+}
+function fmtExp(input) {
+  let v = input.value.replace(/\D/g,'');
+  if (v.length>=2) v = v.substring(0,2)+' / '+v.substring(2,4);
+  input.value = v;
+}
+function togglePw(id,btn) {
+  const el = document.getElementById(id);
+  if (el.type==='password'){el.type='text';btn.textContent='🙈';}
+  else{el.type='password';btn.textContent='👁️';}
+}
+
+function processPayment() {
+  const overlay = document.getElementById('successOverlay');
+  const txn = 'TXN-DZ-' + Math.floor(Math.random()*90000+10000);
+  document.getElementById('txnId').textContent = txn;
+  overlay.classList.add('show');
+}
+
+// Random ref code
+document.getElementById('refCode').textContent = 'DZ' + Math.floor(Math.random()*9000+1000);
+</script>
+</body>
+</html>

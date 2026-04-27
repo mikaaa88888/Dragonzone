@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DragonZone – Seller Centre Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --surface: #1c1c1c;
+    --surface2: #222222;
+    --border: #2e2e2e;
+    --gold: #e6a817;
+    --gold2: #f5cc60;
+    --gold-dim: rgba(230,168,23,0.12);
+    --red: #c0392b;
+    --green: #1db954;
+    --text: #f0f0f0;
+    --text2: #aaaaaa;
+    --text3: #555555;
+    --white: #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  /* Right / form side */
+  .form-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 40px;
+    position: relative;
+    background: var(--bg);
+  }
+  .form-side::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #8b1a00, var(--gold), var(--gold2));
+  }
+
+  /* Left / promo side */
+  .promo-side {
+    width: 46%;
+    background: var(--bg2);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 64px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .promo-side::before {
+    content: '🐉';
+    position: absolute;
+    font-size: 400px;
+    opacity: 0.03;
+    right: -80px;
+    bottom: -60px;
+    pointer-events: none;
+    animation: floatBg 10s ease-in-out infinite;
+  }
+  @keyframes floatBg {
+    0%,100% { transform: rotate(-8deg) translateY(0); }
+    50% { transform: rotate(4deg) translateY(-30px); }
+  }
+
+  .promo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(230,168,23,0.25);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .promo-headline {
+    font-family: 'Cinzel', serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  .promo-headline span { color: var(--gold); }
+
+  .promo-desc {
+    font-size: 15px;
+    color: var(--text2);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    max-width: 380px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .promo-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+  }
+  .promo-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .promo-stat:nth-child(1) { animation-delay: 0.1s; }
+  .promo-stat:nth-child(2) { animation-delay: 0.2s; }
+  .promo-stat:nth-child(3) { animation-delay: 0.3s; }
+  .promo-stat:nth-child(4) { animation-delay: 0.4s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .ps-val { font-size: 24px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+  .ps-label { font-size: 12px; color: var(--text3); font-weight: 600; }
+
+  .promo-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+    max-width: 400px;
+    width: 100%;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .step-item:nth-child(1) { animation-delay: 0.15s; }
+  .step-item:nth-child(2) { animation-delay: 0.25s; }
+  .step-item:nth-child(3) { animation-delay: 0.35s; }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    border: 1px solid rgba(230,168,23,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .step-text { font-size: 13px; color: var(--text2); font-weight: 500; }
+  .step-text strong { color: var(--text); }
+
+  /* Auth card */
+  .auth-card {
+    width: 100%;
+    max-width: 420px;
+    animation: cardIn 0.5s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    text-decoration: none;
+  }
+  .brand-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--gold), #c0392b);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .brand-name { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 900; color: var(--gold); }
+  .brand-sub { font-size: 10px; color: var(--text3); letter-spacing: 2px; text-transform: uppercase; }
+
+  .auth-tabs {
+    display: flex;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 28px;
+  }
+  .auth-tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    color: var(--text3);
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .auth-tab.active {
+    background: var(--gold-dim);
+    color: var(--gold);
+    border: 1px solid rgba(230,168,23,0.25);
+  }
+
+  .auth-title {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .auth-subtitle { font-size: 14px; color: var(--text2); margin-bottom: 24px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .form-input-wrap { position: relative; }
+  .form-icon {
+    position: absolute;
+    left: 13px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+  }
+  .form-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 12px 12px 12px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(230,168,23,0.1);
+  }
+  .form-input::placeholder { color: var(--text3); }
+  .toggle-pw {
+    position: absolute;
+    right: 12px; top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--text3);
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .checkbox-label { display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text2); font-weight: 500; }
+  .checkbox-label input { accent-color: var(--gold); }
+  .forgot-link { color: var(--gold); font-weight: 700; text-decoration: none; font-size: 13px; }
+  .forgot-link:hover { text-decoration: underline; }
+
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--bg);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(230,168,23,0.3);
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(230,168,23,0.4); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0;
+    color: var(--text3);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .switch-text {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 20px;
+  }
+  .switch-text a { color: var(--gold); font-weight: 700; text-decoration: none; }
+  .switch-text a:hover { text-decoration: underline; }
+
+  .customer-cta {
+    margin-top: 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .customer-cta:hover { border-color: var(--gold); }
+  .customer-cta-text { font-size: 13px; font-weight: 600; color: var(--text2); }
+  .customer-cta-sub { font-size: 11px; color: var(--text3); }
+  .customer-cta-arrow { margin-left: auto; color: var(--text3); font-size: 16px; }
+
+  /* Register multi-step */
+  .step-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .step-bar-item {
+    flex: 1;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .step-bar-item.done { background: var(--gold); }
+
+  .step-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .biz-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .biz-type {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .biz-type:hover, .biz-type.selected { border-color: var(--gold); background: var(--gold-dim); }
+  .biz-type .bt-icon { font-size: 28px; margin-bottom: 6px; }
+  .biz-type .bt-label { font-size: 12px; font-weight: 700; color: var(--text2); }
+  .biz-type.selected .bt-label { color: var(--gold); }
+
+  /* OTP */
+  .otp-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 20px; }
+  .otp-input {
+    aspect-ratio: 1;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .otp-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(230,168,23,0.1); }
+
+  /* PW strength */
+  .pw-bars { display: flex; gap: 4px; margin-top: 6px; margin-bottom: 3px; }
+  .pw-bar { flex: 1; height: 3px; background: var(--border); border-radius: 2px; transition: background 0.3s; }
+  .pw-label-text { font-size: 11px; color: var(--text3); }
+
+  .terms-check { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 16px; }
+  .terms-check input { margin-top: 3px; accent-color: var(--gold); flex-shrink: 0; }
+  .terms-check label { font-size: 12px; color: var(--text2); line-height: 1.6; }
+  .terms-check a { color: var(--gold); font-weight: 700; text-decoration: none; }
+
+  .hidden { display: none !important; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: var(--surface2);
+    color: var(--text);
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    z-index: 300;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* Success screen */
+  .success-screen {
+    text-align: center;
+    padding: 20px 0;
+  }
+  .success-icon { font-size: 64px; margin-bottom: 16px; animation: popIn 0.5s cubic-bezier(0.4,0,0.2,1); }
+  @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-title { font-family: 'Cinzel', serif; font-size: 22px; color: var(--text); margin-bottom: 8px; }
+  .success-desc { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 24px; }
+
+  @media (max-width: 900px) {
+    .promo-side { display: none; }
+    .form-side { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FORM SIDE -->
+<div class="form-side">
+  <div class="auth-card">
+
+    <a href="#" class="brand-row">
+      <div class="brand-icon">🐉</div>
+      <div>
+        <div class="brand-name">DragonZone</div>
+        <div class="brand-sub">Seller Centre</div>
+      </div>
+    </a>
+
+    <!-- ── SIGN IN ── -->
+    <div id="signInForm">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('signin')">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('register')">Register Store</button>
+      </div>
+
+      <div class="auth-title">Seller Sign In 🏪</div>
+      <div class="auth-subtitle">Access your DragonZone Seller Centre</div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">📧</span>
+          <input class="form-input" type="email" placeholder="seller@yourstore.com" id="sellerEmail">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">🔒</span>
+          <input class="form-input" type="password" placeholder="Enter your password" id="sellerPw">
+          <button class="toggle-pw" onclick="togglePw('sellerPw',this)" type="button">👁️</button>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label"><input type="checkbox" checked> Remember me</label>
+        <a href="#" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button class="submit-btn" onclick="handleSellerSignIn()">Access Seller Centre →</button>
+
+      <div class="switch-text">
+        New seller? <a href="#" onclick="switchTab('register');return false;">Register your store →</a>
+      </div>
+
+      <a href="dragonzone-customer-auth.html" class="customer-cta">
+        <span style="font-size:22px;">🛒</span>
+        <div>
+          <div class="customer-cta-text">Looking to shop instead?</div>
+          <div class="customer-cta-sub">Go to Customer Sign In</div>
+        </div>
+        <span class="customer-cta-arrow">→</span>
+      </a>
+    </div>
+
+    <!-- ── REGISTER STEP 1: Business Info ── -->
+    <div id="regStep1" class="hidden">
+      <div class="auth-tabs">
+        <button class="auth-tab" onclick="switchTab('signin')">Sign In</button>
+        <button class="auth-tab active" onclick="switchTab('register')">Register Store</button>
+      </div>
+      <div class="step-bar">
+        <div class="step-bar-item done"></div>
+        <div class="step-bar-item"></div>
+        <div class="step-bar-item"></div>
+      </div>
+      <div class="step-title">Step 1 of 3 — Business Type</div>
+      <div class="auth-title">Tell us about<br>your business</div>
+      <div class="auth-subtitle" style="margin-bottom:20px;">Choose the type that best describes your store</div>
+
+      <div class="biz-type-grid" id="bizGrid">
+        <div class="biz-type" onclick="selectBiz(this)"><div class="bt-icon">🎨</div><div class="bt-label">Local Artisan / Craftsperson</div></div>
+        <div class="biz-type" onclick="selectBiz(this)"><div class="bt-icon">🏪</div><div class="bt-label">Retail Shop / Store</div></div>
+        <div class="biz-type" onclick="selectBiz(this)"><div class="bt-icon">🌾</div><div class="bt-label">Farmer / Food Producer</div></div>
+        <div class="biz-type" onclick="selectBiz(this)"><div class="bt-icon">🏭</div><div class="bt-label">Manufacturer / Wholesaler</div></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Store Name</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">🏪</span>
+          <input class="form-input" type="text" placeholder="e.g. Pema's Handcraft House">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dzongkhag (District)</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">📍</span>
+          <select class="form-input" style="cursor:pointer;">
+            <option value="">Select your dzongkhag…</option>
+            <option>Thimphu</option><option>Paro</option><option>Punakha</option><option>Bumthang</option>
+            <option>Wangdue Phodrang</option><option>Trongsa</option><option>Haa</option><option>Chhukha</option>
+            <option>Dagana</option><option>Gasa</option><option>Lhuentse</option><option>Monggar</option>
+            <option>Pemagatshel</option><option>Samdrup Jongkhar</option><option>Samtse</option><option>Sarpang</option>
+            <option>Trashigang</option><option>Trashiyangtse</option><option>Tsirang</option><option>Zhemgang</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="goStep(2)">Continue →</button>
+    </div>
+
+    <!-- ── REGISTER STEP 2: Account Details ── -->
+    <div id="regStep2" class="hidden">
+      <div class="step-bar">
+        <div class="step-bar-item done"></div>
+        <div class="step-bar-item done"></div>
+        <div class="step-bar-item"></div>
+      </div>
+      <div class="step-title">Step 2 of 3 — Account Details</div>
+      <div class="auth-title">Create your<br>seller account</div>
+      <div class="auth-subtitle">Your sign-in credentials for the Seller Centre</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <div class="form-input-wrap">
+            <span class="form-icon">👤</span>
+            <input class="form-input" type="text" placeholder="Pema">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <div class="form-input-wrap">
+            <span class="form-icon">👤</span>
+            <input class="form-input" type="text" placeholder="Dorji">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Business Email</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">📧</span>
+          <input class="form-input" type="email" placeholder="business@yourstore.bt">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">📞</span>
+          <input class="form-input" type="tel" placeholder="+975 17 123 456">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">🔒</span>
+          <input class="form-input" type="password" placeholder="Min. 8 characters" id="regPw2" oninput="checkStrength(this.value)">
+          <button class="toggle-pw" onclick="togglePw('regPw2',this)" type="button">👁️</button>
+        </div>
+        <div class="pw-bars">
+          <div class="pw-bar" id="b1"></div><div class="pw-bar" id="b2"></div>
+          <div class="pw-bar" id="b3"></div><div class="pw-bar" id="b4"></div>
+        </div>
+        <div class="pw-label-text" id="pwLab">Enter a password</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">CID Number (Bhutan National ID)</label>
+        <div class="form-input-wrap">
+          <span class="form-icon">🪪</span>
+          <input class="form-input" type="text" placeholder="11 digit CID number">
+        </div>
+      </div>
+
+      <div class="terms-check">
+        <input type="checkbox" id="sellerTerms">
+        <label for="sellerTerms">I agree to DragonZone's <a href="#">Seller Agreement</a>, <a href="#">Terms of Service</a>, and confirm my business information is accurate.</label>
+      </div>
+
+      <button class="submit-btn" onclick="goStep(3)">Continue →</button>
+      <div class="switch-text"><a href="#" onclick="goStep(1);return false;">← Back</a></div>
+    </div>
+
+    <!-- ── REGISTER STEP 3: OTP Verify ── -->
+    <div id="regStep3" class="hidden">
+      <div class="step-bar">
+        <div class="step-bar-item done"></div>
+        <div class="step-bar-item done"></div>
+        <div class="step-bar-item done"></div>
+      </div>
+      <div class="step-title">Step 3 of 3 — Verification</div>
+
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="font-size:48px;margin-bottom:10px;">📱</div>
+        <div class="auth-title">Verify Your Phone</div>
+        <div class="auth-subtitle">Enter the 6-digit code sent to your phone</div>
+      </div>
+
+      <div class="otp-grid">
+        <input class="otp-input" type="text" maxlength="1" oninput="otpNext(this,0)">
+        <input class="otp-input" type="text" maxlength="1" oninput="otpNext(this,1)">
+        <input class="otp-input" type="text" maxlength="1" oninput="otpNext(this,2)">
+        <input class="otp-input" type="text" maxlength="1" oninput="otpNext(this,3)">
+        <input class="otp-input" type="text" maxlength="1" oninput="otpNext(this,4)">
+        <input class="otp-input" type="text" maxlength="1" oninput="otpNext(this,5)">
+      </div>
+
+      <button class="submit-btn" onclick="handleOtp()">Verify & Open My Store →</button>
+      <div class="switch-text" style="margin-top:14px;">
+        Didn't get the code? <a href="#" onclick="showToast('📱 New OTP sent!');return false;">Resend</a>
+      </div>
+      <div class="switch-text"><a href="#" onclick="goStep(2);return false;">← Back</a></div>
+    </div>
+
+    <!-- ── SUCCESS ── -->
+    <div id="successScreen" class="hidden">
+      <div class="success-screen">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">Store Registered!</div>
+        <div class="success-desc">
+          Your DragonZone seller account has been created. Our team will review and approve your store within <strong style="color:var(--gold)">24 hours</strong>. You can start adding products right away!
+        </div>
+        <button class="submit-btn" onclick="window.location.href='dragonzone-seller.html'">Go to Seller Dashboard →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROMO SIDE -->
+<div class="promo-side">
+  <div class="promo-badge">🏪 Become a Seller</div>
+
+  <div class="promo-headline">
+    Sell to All of<br><span>Bhutan</span> — Online
+  </div>
+  <div class="promo-desc">
+    List your products on DragonZone and reach thousands of customers across all 20 dzongkhags. Grow your business with Bhutan's #1 marketplace.
+  </div>
+
+  <div class="promo-stats">
+    <div class="promo-stat">
+      <div class="ps-val">50K+</div>
+      <div class="ps-label">Active Buyers</div>
+    </div>
+    <div class="promo-stat">
+      <div class="ps-val">2,800+</div>
+      <div class="ps-label">Active Sellers</div>
+    </div>
+    <div class="promo-stat">
+      <div class="ps-val">Nu. 0</div>
+      <div class="ps-label">Registration Fee</div>
+    </div>
+    <div class="promo-stat">
+      <div class="ps-val">20</div>
+      <div class="ps-label">Dzongkhags Covered</div>
+    </div>
+  </div>
+
+  <div class="promo-steps">
+    <div style="font-size:12px;font-weight:700;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">How It Works</div>
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Register your store</strong> — free in under 5 minutes</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>List your products</strong> — photos, prices, descriptions</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Get orders & earn</strong> — we handle payments & logistics</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let currentStep = 'signin';
+
+function switchTab(tab) {
+  document.getElementById('signInForm').classList.add('hidden');
+  document.getElementById('regStep1').classList.add('hidden');
+  document.getElementById('regStep2').classList.add('hidden');
+  document.getElementById('regStep3').classList.add('hidden');
+  document.getElementById('successScreen').classList.add('hidden');
+
+  if (tab === 'signin') {
+    document.getElementById('signInForm').classList.remove('hidden');
+  } else {
+    document.getElementById('regStep1').classList.remove('hidden');
+  }
+}
+
+function goStep(n) {
+  document.getElementById('regStep1').classList.add('hidden');
+  document.getElementById('regStep2').classList.add('hidden');
+  document.getElementById('regStep3').classList.add('hidden');
+  if (n === 1) document.getElementById('regStep1').classList.remove('hidden');
+  else if (n === 2) {
+    if (!document.getElementById('terms') && !document.getElementById('sellerTerms')) {}
+    document.getElementById('regStep2').classList.remove('hidden');
+  }
+  else if (n === 3) {
+    if (!document.getElementById('sellerTerms').checked) { showToast('⚠️ Please agree to the Seller Agreement'); return; }
+    document.getElementById('regStep3').classList.remove('hidden');
+    showToast('📱 OTP sent to your phone!');
+  }
+}
+
+function selectBiz(el) {
+  document.querySelectorAll('.biz-type').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function togglePw(id, btn) {
+  const input = document.getElementById(id);
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+  else { input.type = 'password'; btn.textContent = '👁️'; }
+}
+
+function checkStrength(val) {
+  const bars = ['b1','b2','b3','b4'].map(id => document.getElementById(id));
+  const label = document.getElementById('pwLab');
+  if (!bars[0] || !label) return;
+  const colors = ['#c0392b','#e67e22','#f1c40f','#1db954'];
+  const labels = ['Too weak','Fair','Good','Strong 💪'];
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  bars.forEach((b, i) => { b.style.background = i < score ? colors[Math.min(score-1,3)] : '#2e2e2e'; });
+  label.textContent = val.length === 0 ? 'Enter a password' : (labels[Math.min(score-1,3)] || 'Too weak');
+  label.style.color = val.length === 0 ? '#555' : colors[Math.min(score-1,3)];
+}
+
+function otpNext(input, idx) {
+  const inputs = document.querySelectorAll('.otp-input');
+  input.value = input.value.replace(/\D/g,'');
+  if (input.value && idx < 5) inputs[idx+1].focus();
+  if (idx === 5 && input.value) handleOtp();
+}
+
+function handleSellerSignIn() {
+  const email = document.getElementById('sellerEmail').value;
+  const pw = document.getElementById('sellerPw').value;
+  if (!email || !pw) { showToast('⚠️ Please fill in all fields'); return; }
+  showToast('✅ Signing in to Seller Centre…');
+  setTimeout(() => { window.location.href = 'dragonzone-seller.html'; }, 1200);
+}
+
+function handleOtp() {
+  const inputs = document.querySelectorAll('.otp-input');
+  const code = Array.from(inputs).map(i => i.value).join('');
+  if (code.length < 6) { showToast('⚠️ Enter all 6 digits'); return; }
+  document.getElementById('regStep3').classList.add('hidden');
+  document.getElementById('successScreen').classList.remove('hidden');
+  showToast('🎉 Store registered successfully!');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+</script>
+</body>
+</html>
